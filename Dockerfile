@@ -1,21 +1,16 @@
-FROM python:3.9-slim-bullseye as base
+FROM debian:bullseye-slim as base
 
-FROM base as build
 
 # Install dependencies
 COPY requirements.txt requirements.txt
+RUN apt update
+RUN apt install vlan net-tools ethtool iproute2 iputils-ping traceroute python3 python3-pip -y
+RUN apt install procps -y
+RUN apt-get install python3-pip python3-dev build-essential libssl-dev libffi-dev -y
 RUN apt-get update && apt-get install -y libpq-dev gcc \
-    && pip install --user --no-cache-dir -r requirements.txt \
-    && rm -rf /var/lib/apt/lists/*
-
+    && pip install --user --no-cache-dir -r requirements.txt 
 # Install Heralding
-COPY . .
-RUN python setup.py install --user
-
-FROM base
-COPY --from=build /root/.local /root/.local
-
-ENV PATH=/root/.local/bin:$PATH
+RUN pip install heralding
 
 CMD ["heralding" ]
-EXPOSE 21 22 23 25 80 110 143 443 465 993 995 1080 2222 3306 3389 5432 5900
+#EXPOSE 21 22 23 25 80 110 143 443 465 993 995 1080 2222 3306 3389 5432 5900

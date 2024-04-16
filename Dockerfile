@@ -12,5 +12,5 @@ RUN apt-get update && apt-get install -y libpq-dev gcc \
 # Install Heralding
 RUN pip install heralding
 COPY ./heralding/heralding.yml ./usr/local/lib/python3.9/dist-packages/heralding/heralding.yml
+EXPOSE 21 22 23 25 80 110 143 443 465 993 995 1080 2222 3306 3389 5432 5900
 CMD ["heralding" ]
-#EXPOSE 21 22 23 25 80 110 143 443 465 993 995 1080 2222 3306 3389 5432 5900

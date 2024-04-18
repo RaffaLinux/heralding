@@ -46,8 +46,8 @@ capabilities:
     timeout: 30
     protocol_specific_data:
       max_attempts: 3
-      banner: "Microsoft FTP Server"
-      syst_type: "Windows-NT"
+      banner: "vsftpd 2.3.4"
+      syst_type: "Linux"
 
   telnet:
     enabled: true
